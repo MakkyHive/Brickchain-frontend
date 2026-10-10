@@ -38,14 +38,29 @@ function PropertyList() {
   return (
     <main className="page">
       <header className="page-header">
-        <p className="eyebrow">BRICKCHAIN</p>
-        <h1>Explore properties</h1>
-        <p className="subtitle">
-          Discover properties available on the platform.
-        </p>
-      </header>
+        <nav className="site-nav">
+          <Link to="/" className="brand">
+            <span className="brand-mark">B</span>
+            <span>BrickChain</span>
+          </Link>
 
-      {loading && <p>Loading properties...</p>}
+          <span className="nav-label">Real estate marketplace</span>
+        </nav>
+
+        <div className="hero-content">
+          <p className="eyebrow">REAL ESTATE, REIMAGINED</p>
+          <h1>
+            Discover properties.
+            <br />
+            <span>Explore what's possible.</span>
+          </h1>
+          <p className="subtitle">
+            Explore property opportunities and discover the details behind
+            every listing, all in one place.
+          </p>
+        </div>
+      </header>
+      <p>Loading properties...</p>
 
       {error && <p className="error">{error}</p>}
 
@@ -54,7 +69,19 @@ function PropertyList() {
       )}
 
       {!loading && !error && properties.length > 0 && (
-        <section className="property-grid">
+        <section className="listings-section">
+  <div className="listings-heading">
+    <div>
+      <p className="eyebrow">THE COLLECTION</p>
+      <h2>Explore properties</h2>
+    </div>
+
+    <span className="listing-count">
+      {properties.length} {properties.length === 1 ? "property" : "properties"}
+    </span>
+  </div>
+
+  <div className="property-grid">
           {properties.map((property) => (
           <Link
             to={`/properties/${property.id}`}
@@ -102,8 +129,11 @@ function PropertyList() {
                 </div>
               </div>
             </Link>
+            
           ))}
+          </div>
         </section>
+        
       )}
     </main>
   );
