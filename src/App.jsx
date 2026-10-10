@@ -7,7 +7,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 
 
-const API_URL = "http://127.0.0.1:8000/api/properties";
+const API_URL = `${import.meta.env.VITE_API_URL}/properties`;
 
 function PropertyList() {
   const [properties, setProperties] = useState([]);
