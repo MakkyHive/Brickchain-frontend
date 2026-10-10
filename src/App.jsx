@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import PropertyDetails from "./pages/PropertyDetails";
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
@@ -7,7 +9,7 @@ import viteLogo from './assets/vite.svg'
 
 const API_URL = "http://127.0.0.1:8000/api/properties";
 
-function App() {
+function PropertyList() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -54,8 +56,12 @@ function App() {
       {!loading && !error && properties.length > 0 && (
         <section className="property-grid">
           {properties.map((property) => (
-            <article className="property-card" key={property.id}>
-              <div className="property-top">
+          <Link
+            to={`/properties/${property.id}`}
+            className="property-card"
+            key={property.id}
+          >     
+          <div className="property-top">
                 <span className="property-label">Real estate</span>
                 <span className={`status ${property.status}`}>
                   {property.status}
@@ -95,11 +101,22 @@ function App() {
                   </strong>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </section>
       )}
     </main>
+  );
+}
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<PropertyList />} />
+      <Route
+        path="/properties/:id"
+        element={<PropertyDetails />}
+      />
+    </Routes>
   );
 }
 
