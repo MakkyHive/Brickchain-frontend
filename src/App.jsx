@@ -11,6 +11,7 @@ function PropertyList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   useEffect(() => {
     async function fetchProperties() {
@@ -34,14 +35,22 @@ function PropertyList() {
   }, []);
 
   // Filter properties by title or location.
-  const filteredProperties = properties.filter((property) => {
-    const query = searchTerm.trim().toLowerCase();
+  
+const filteredProperties = properties.filter((property) => {
+  const query = searchTerm.trim().toLowerCase();
 
-    const title = String(property.title ?? "").toLowerCase();
-    const location = String(property.location ?? "").toLowerCase();
+  const title = String(property.title ?? "").toLowerCase();
+  const location = String(property.location ?? "").toLowerCase();
 
-    return title.includes(query) || location.includes(query);
-  });
+  const matchesSearch =
+    title.includes(query) || location.includes(query);
+
+  const matchesStatus =
+    statusFilter === "all" || property.status === statusFilter;
+
+  return matchesSearch && matchesStatus;
+});
+
 
   return (
     <main className="page">
@@ -108,6 +117,16 @@ function PropertyList() {
                 setSearchTerm(event.target.value)
               }
             />
+            <select
+  className="status-filter"
+  value={statusFilter}
+  onChange={(event) => setStatusFilter(event.target.value)}
+  aria-label="Filter properties by status"
+>
+  <option value="all">All statuses</option>
+  <option value="active">Active</option>
+  <option value="inactive">Inactive</option>
+</select>
           </div>
 
           <div className="property-grid">
@@ -204,5 +223,4 @@ function App() {
     </Routes>
   );
 }
-
 export default App;

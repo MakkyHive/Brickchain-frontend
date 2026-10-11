@@ -819,3 +819,34 @@ a.property-card:focus-visible {
     padding: 20px;
   }
 }
+.property-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.property-search,
+.status-filter {
+  width: 100%;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid #3f3f46;
+  border-radius: 12px;
+  background: #18181b;
+  color: #fafafa;
+  font: inherit;
+  font-size: 14px;
+}
+
+.property-search:focus,
+.status-filter:focus {
+  border-color: #a3e635;
+  outline: 2px solid #a3e63530;
+}
+
+@media (max-width: 560px) {
+  .property-filters {
+    grid-template-columns: 1fr;
+  }
+}
